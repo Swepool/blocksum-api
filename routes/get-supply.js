@@ -12,7 +12,8 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-let getSupply = []
+let supply
+const max = 1000000000
 
 async function getLatest() {
     console.log("🚨 Getting supply")
@@ -34,7 +35,7 @@ async function getLatest() {
 }
 
 async function getByBlockHash(hash) {
-    getSupply = []
+    supply
     const response = await fetch('https://blocksum.org/api/json_rpc', {
         method: 'POST',
         cache: 'no-cache',
@@ -50,16 +51,16 @@ async function getByBlockHash(hash) {
         })
     });
     const data = await response.json();
-    supplyJSON(numberWithCommas((data.result.block.alreadyGeneratedCoins).slice(0, -5)))
+    supplyJSON(numberWithCommas((data.result.block.alreadyGeneratedCoins).slice(0, -5)), numberWithCommas(max))
 }
 
 
 //Create list of nodes
-function supplyJSON(current) {
-    getSupply.push({
+function supplyJSON(current, max) {
+    supply = JSON.stringify({
         current,
-        "max": "1,000,000,000"
-    })
+        max
+        })
 }
 
 setInterval(getLatest, 60000)
@@ -68,7 +69,7 @@ getLatest()
 
 //Listen for /nodes
 router.get('/', cors(corsOptions), (req, res) => {
-    res.status(200).send({supply: getSupply})
+    res.status(200).send({supply: JSON.parse(supply)})
 })
 
 module.exports = router
