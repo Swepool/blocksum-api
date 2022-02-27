@@ -51,7 +51,7 @@ setInterval(getNodeData, 90000)
 getNodeData()
 
 //Listen for /nodes
-router.get('/', (req, res) => {
+router.get('/', cors({methods: ['GET']}), (req, res) => {
     res.status(200).send({nodes})
 })
 
