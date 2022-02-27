@@ -5,20 +5,14 @@ const PORT = 8080
 //Start message
 app.listen(
     PORT,
-    () => console.log(`It's alive on http://localhost:${PORT}`)
+    () => console.log(`It's live on http://localhost:${PORT} 🥳`)
 )
-
-//List of nodes
-let nodeList = [
-    {"name": "Blocksum","url": 'http://blocksum.org:11898'},
-    {"name": "Gota","url": 'http://gota.kryptokrona.se:11898'},
-    {"name": "Gota","url": 'http://gota.kryptokrona.se:11898'},
-]
 
 let nodes = []
 
+//Fetch list from github and iterate over all nodes
 function getNodeData() {
-    console.log("Running")
+    console.log("🚨 Getting nodes")
     nodes = []
     fetch(`https://raw.githubusercontent.com/kryptokrona/kryptokrona-nodes-list/master/nodes.json`)
         .then(res => res.json())
@@ -35,6 +29,7 @@ function getNodeData() {
         .catch(err => console.log(err))
 }
 
+//Create list of nodes
 function createNodeList(node, data) {
     nodes.push({
         nodeName: node.name,
@@ -51,8 +46,9 @@ function createNodeList(node, data) {
     })
 }
 
-nodes = []
-setInterval(getNodeData, 10000)
+setInterval(getNodeData, 300000)
+
+
 //Listen for /nodes
 app.get('/nodes', (req, res) => {
     res.status(200).send({nodes})
