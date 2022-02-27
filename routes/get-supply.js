@@ -12,7 +12,7 @@ const max = 1000000000
 
 async function getLatest() {
     console.log("🚨 Getting supply")
-    const response = await fetch('http://172.0.0.1:11898/json_rpc', {
+    const response = await fetch('https://blocksum.org/api/json_rpc', {
         method: 'POST',
         cache: 'no-cache',
         redirect: 'follow',
