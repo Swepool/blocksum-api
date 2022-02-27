@@ -36,15 +36,7 @@ function createPoolList(pool, data) {
     pools.push({
         name: pool.name,
         url: pool.href,
-        fee: data.config.fee,
-        height: data.network.height,
-        hashrate: data.pool.hashrate,
-        hashrateSolo: data.pool.hashrateSolo,
-        miners: data.pool.miners,
-        minersSolo: data.pool.minersSolo,
-        minPayOut: data.config.minPaymentThreshold,
-        payments: data.pool.totalPayments,
-        minersPaid: data.pool.totalMinersPaid,
+        data
     })
 }
 
