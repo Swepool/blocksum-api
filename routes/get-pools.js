@@ -17,7 +17,7 @@ let pools = []
 
 //Fetch list from github and iterate over all nodes
 function getPoolData() {
-    console.log("🚨 Getting nodes")
+    console.log("🚨 Getting pools")
     pools = []
     for (const pool of poolList) {
         fetch(pool.url)

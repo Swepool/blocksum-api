@@ -13,6 +13,9 @@ app.use('/nodes', cors(corsOptions), nodesRoute)
 const poolsRoute = require('./routes/get-pools')
 app.use('/pools', cors(corsOptions), poolsRoute)
 
+const supplyRoute = require('./routes/get-supply')
+app.use('/supply', cors(corsOptions), supplyRoute)
+
 //Start message
 app.listen(
     PORT,
