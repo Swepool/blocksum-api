@@ -3,11 +3,6 @@ const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
 
-const corsOptions = {
-    origin: '*',
-    method: ['GET']
-}
-
 let nodes = []
 
 //Fetch list from github and iterate over all nodes
@@ -50,7 +45,7 @@ setInterval(getNodeData, 90000)
 getNodeData()
 
 //Listen for /nodes
-router.get('/', cors(corsOptions), (req, res) => {
+router.get('/', (req, res) => {
     res.status(200).send({nodes})
 })
 

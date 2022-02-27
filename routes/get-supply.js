@@ -3,6 +3,11 @@ const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
 
+const corsOptions = {
+    origin: '*',
+    method: ['GET']
+}
+
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -63,7 +68,7 @@ getLatest()
 
 
 //Listen for /nodes
-router.get('/',  (req, res) => {
+router.get('/', cors(corsOptions), (req, res) => {
     res.status(200).send({supply: JSON.parse(supply)})
 })
 
