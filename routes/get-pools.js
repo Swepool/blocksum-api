@@ -2,6 +2,7 @@ const express = require('express')
 const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
+const moment = require('moment')
 
 
 let poolList = [
@@ -28,8 +29,16 @@ function getPoolData() {
 //Create list of nodes
 function createPoolList(pool, data) {
     pools.push({
-        poolName: pool.name,
-        data
+        name: pool.name,
+        fee: data.config.fee,
+        hashrate: data.pool.hashrate,
+        hashrateSolo: data.pool.hashrateSolo,
+        miners: data.pool.miners,
+        minersSolo: data.pool.minersSolo,
+        minPayOut: data.config.minPaymentThreshold,
+        payments: data.pool.totalPayments,
+        minersPaid: data.pool.totalMinersPaid,
+        lastBlockFound: moment(data.pool.stats.lastBlockFound).fromNow()
     })
 }
 
