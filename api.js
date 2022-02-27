@@ -1,5 +1,6 @@
 const app = require('express')();
 const fetch = require('cross-fetch')
+const cors = require('cors');
 const PORT = 8080
 
 //Start message
@@ -9,7 +10,7 @@ app.listen(
 )
 
 app.use(cors({
-    origin: '*'
+    methods: ['GET']
 }));
 
 let nodes = []
