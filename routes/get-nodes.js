@@ -3,11 +3,10 @@ const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
 
-//Set CORS
-router.use(cors({
-    methods: ['GET']
-}));
-
+const corsOptions = {
+    origin: '*',
+    method: ['GET']
+}
 
 let nodes = []
 
@@ -51,7 +50,7 @@ setInterval(getNodeData, 90000)
 getNodeData()
 
 //Listen for /nodes
-router.get('/', cors({methods: ['GET']}), (req, res) => {
+router.get('/', cors(corsOptions), (req, res) => {
     res.status(200).send({nodes})
 })
 
