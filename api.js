@@ -2,12 +2,13 @@ const app = require('express')();
 const cors = require("cors");
 const PORT = 8081
 
-app.use(cors({
-    methods: ['GET']
-}))
+const corsOptions = {
+    origin: '*',
+    method: ['GET']
+}
 
 const nodeRoute = require('./routes/get-nodes')
-app.use('/nodes', cors({methods: ['GET']}), nodeRoute)
+app.use('/nodes', cors(corsOptions), nodeRoute)
 
 //Start message
 app.listen(
