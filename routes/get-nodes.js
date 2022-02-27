@@ -48,6 +48,7 @@ let nodes = []
     }
 
 setInterval(getNodeData, 90000)
+getNodeData()
 
 //Listen for /nodes
 router.get('/', (req, res) => {
