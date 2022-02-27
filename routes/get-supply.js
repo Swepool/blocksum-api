@@ -3,11 +3,6 @@ const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
 
-const corsOptions = {
-    origin: '*',
-    method: ['GET']
-}
-
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -17,7 +12,7 @@ const max = 1000000000
 
 async function getLatest() {
     console.log("🚨 Getting supply")
-    const response = await fetch('https://blocksum.org/api/json_rpc', {
+    const response = await fetch('http://lcoalhost:11897/json_rpc', {
         method: 'POST',
         cache: 'no-cache',
         redirect: 'follow',
@@ -68,7 +63,7 @@ getLatest()
 
 
 //Listen for /nodes
-router.get('/', cors(corsOptions), (req, res) => {
+router.get('/', (req, res) => {
     res.status(200).send({supply: JSON.parse(supply)})
 })
 

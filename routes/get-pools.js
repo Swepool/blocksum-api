@@ -3,10 +3,6 @@ const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
 
-const corsOptions = {
-    origin: '*',
-    method: ['GET']
-}
 
 let poolList = [
     {"name": "swepool", "url": "https://swepool.org/api/stats"},
@@ -41,7 +37,7 @@ setInterval(getPoolData, 90000)
 getPoolData()
 
 
-router.get('/', cors(corsOptions), (req, res) => {
+router.get('/', (req, res) => {
     res.status(200).send({pools})
 })
 

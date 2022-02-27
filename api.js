@@ -16,6 +16,9 @@ app.use('/pools', cors(corsOptions), poolsRoute)
 const supplyRoute = require('./routes/get-supply')
 app.use('/supply', cors(corsOptions), supplyRoute)
 
+const huginRoute = require('./routes/get-hugin')
+app.use('/hugin', cors(corsOptions), huginRoute)
+
 //Start message
 app.listen(
     PORT,
