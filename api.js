@@ -8,6 +8,10 @@ app.listen(
     () => console.log(`It's live on http://localhost:${PORT} 🥳`)
 )
 
+app.use(cors({
+    origin: '*'
+}));
+
 let nodes = []
 
 //Fetch list from github and iterate over all nodes
