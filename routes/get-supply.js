@@ -12,7 +12,7 @@ const max = 1000000000
 
 async function getLatest() {
     console.log("🚨 Getting supply")
-    const response = await fetch('http://lcoalhost:11897/json_rpc', {
+    const response = await fetch('http://localhost:11898/json_rpc', {
         method: 'POST',
         cache: 'no-cache',
         redirect: 'follow',
