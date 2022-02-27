@@ -46,7 +46,7 @@ function createNodeList(node, data) {
     })
 }
 
-setInterval(getNodeData, 300000)
+setInterval(getNodeData, 90000)
 
 
 //Listen for /nodes
