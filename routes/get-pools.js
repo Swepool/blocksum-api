@@ -2,7 +2,6 @@ const express = require('express')
 const router = require('express').Router();
 const fetch = require("cross-fetch");
 const cors = require("cors");
-const moment = require('moment')
 
 
 let poolList = [
