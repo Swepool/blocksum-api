@@ -35,7 +35,7 @@ function createPoolList(pool, data) {
 
     pools.push({
         name: pool.name,
-        url: pool.href
+        url: pool.href,
         fee: data.config.fee,
         hashrate: data.pool.hashrate,
         hashrateSolo: data.pool.hashrateSolo,
