@@ -7,8 +7,11 @@ const corsOptions = {
     method: ['GET']
 }
 
-const nodeRoute = require('./routes/get-nodes')
-app.use('/nodes', cors(corsOptions), nodeRoute)
+const nodesRoute = require('./routes/get-nodes')
+app.use('/nodes', cors(corsOptions), nodesRoute)
+
+const poolsRoute = require('./routes/get-pools')
+app.use('/pools', cors(corsOptions), poolsRoute)
 
 //Start message
 app.listen(
