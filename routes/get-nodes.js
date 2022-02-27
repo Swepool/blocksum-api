@@ -41,7 +41,7 @@ let nodes = []
         })
     }
 
-setInterval(getNodeData, 5000)
+setInterval(getNodeData, 90000)
 
 //Listen for /nodes
 router.get('/', (req, res) => {
