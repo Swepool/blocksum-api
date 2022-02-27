@@ -1,7 +1,13 @@
 const express = require('express')
 const router = require('express').Router();
-
 const fetch = require("cross-fetch");
+const cors = require("cors");
+
+//Set CORS
+router.use(cors({
+    methods: ['GET']
+}));
+
 
 let nodes = []
 
