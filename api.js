@@ -1,6 +1,6 @@
 const app = require('express')();
 const cors = require("cors");
-const PORT = 8081
+const PORT = 8080
 
 const corsOptions = {
     origin: '*',
