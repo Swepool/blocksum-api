@@ -7,6 +7,8 @@ const corsOptions = {
     method: ['GET']
 }
 
+//XKR
+
 const nodesRoute = require('./routes/get-nodes')
 app.use('/nodes', cors(corsOptions), nodesRoute)
 
@@ -15,6 +17,11 @@ app.use('/pools', cors(corsOptions), poolsRoute)
 
 const supplyRoute = require('./routes/get-supply')
 app.use('/supply', cors(corsOptions), supplyRoute)
+
+//NBX
+
+const spreadRoute = require('./routes/nbx-spread')
+app.use('/spread', cors(corsOptions), spreadRoute)
 
 //Start message
 app.listen(
