@@ -32,8 +32,12 @@ const spreadKaupangRoute = require('./routes/kaupang/kaupang-spread')
 app.use('/kaupang/spread', cors(corsOptions), spreadKaupangRoute)
 
 //Handlekrypto
-const spreadhkRoute = require('./routes/handlekrypto/handlekrypto-spread')
-app.use('/handlekrypto/spread', cors(corsOptions), spreadhkRoute)
+const spreadHandlekryptoRoute = require('./routes/handlekrypto/handlekrypto-spread')
+app.use('/handlekrypto/spread', cors(corsOptions), spreadHandlekryptoRoute)
+
+//Bitmynt
+const spreadBitmyntRoute = require('./routes/bitmynt/bitmynt-spread')
+app.use('/handlekrypto/spread', cors(corsOptions), spreadBitmyntRoute)
 
 //Start message
 app.listen(

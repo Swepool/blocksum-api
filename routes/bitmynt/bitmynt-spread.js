@@ -8,7 +8,7 @@ setInterval(async function start() {
     const timeNow = new Date();
     const time = timeNow.toLocaleTimeString(('no-NN', {timeStyle: 'short', hour12: false}))
 
-    await fetch('https://handlekrypto.com/wp-admin/admin-ajax.php?action=cryptocurrency_prices')
+    await fetch('https://bitmynt.no/ticker-nok.pl')
         .then(res => {
             if (!res.ok) {
                 throw Error('Status not ok')
@@ -16,15 +16,15 @@ setInterval(async function start() {
             return res.json()
         })
         .then(data => {
-
-            let ask = (data.BTC * data.CONVERSION_BUY)
-            let bid = (data.BTC * data.CONVERSION_SELL)
+            let ask = data.nok.sell
+            let bid = data.nok.buy
             currentSpread = (((ask - bid) / ask) * 100).toFixed(2)
+            console.log(currentSpread)
         }).catch(err => console.log(err))
 
    await createList(time, currentSpread)
 
-},60000)
+},5000)
 
 async function createList(time, data) {
     obj.push({
