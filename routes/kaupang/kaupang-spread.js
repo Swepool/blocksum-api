@@ -7,7 +7,6 @@ let currentSpread
 setInterval(async function start() {
     const timeNow = new Date();
     const time = timeNow.toLocaleTimeString(('no-NN', {timeStyle: 'short', hour12: false}))
-    console.log(time)
 
     await fetch('https://www.kaupangkrypto.no/api/price/?coin=btc')
         .then(res => {
@@ -32,7 +31,7 @@ async function createList(time, data) {
     if(obj.length > 1440) {
         obj.shift()
     }
-    console.log('Writing ✏️')
+    console.log('🚨 Writing Kaupang Spread')
 }
 
 //Listen for /nodes

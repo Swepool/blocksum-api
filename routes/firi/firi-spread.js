@@ -17,7 +17,6 @@ setInterval(async function start() {
         })
         .then(data => {
             currentSpread = (((data.asks[0][0] - data.bids[0][0]) / data.asks[0][0]) * 100).toFixed(2)
-            console.log(currentSpread)
         }).catch(err => console.log(err))
 
    await createList(time, currentSpread)
@@ -32,7 +31,7 @@ async function createList(time, data) {
     if(obj.length > 1440) {
         obj.shift()
     }
-    console.log('Writing ✏️')
+    console.log('🚨 Writing Firi Spread')
 }
 
 //Listen for /nodes

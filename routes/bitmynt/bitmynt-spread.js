@@ -19,7 +19,6 @@ setInterval(async function start() {
             let ask = data.nok.sell
             let bid = data.nok.buy
             currentSpread = (((ask - bid) / ask) * 100).toFixed(2)
-            console.log(currentSpread)
         }).catch(err => console.log(err))
 
    await createList(time, currentSpread)
@@ -34,7 +33,7 @@ async function createList(time, data) {
     if(obj.length > 1440) {
         obj.shift()
     }
-    console.log('Writing ✏️')
+    console.log('🚨 Writing Bitmynt Spread')
 }
 
 //Listen for /nodes
