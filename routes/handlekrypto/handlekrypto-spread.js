@@ -34,7 +34,7 @@ async function createList(time, data) {
     if(obj.length > 1440) {
         obj.shift()
     }
-    console.log('Writing ✏️')
+    console.log('🚨 Writing HandleKrypto Spread')
 }
 
 //Listen for /nodes
