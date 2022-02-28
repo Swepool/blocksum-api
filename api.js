@@ -37,7 +37,7 @@ app.use('/handlekrypto/spread', cors(corsOptions), spreadHandlekryptoRoute)
 
 //Bitmynt
 const spreadBitmyntRoute = require('./routes/bitmynt/bitmynt-spread')
-app.use('/handlekrypto/spread', cors(corsOptions), spreadBitmyntRoute)
+app.use('/bitmynt/spread', cors(corsOptions), spreadBitmyntRoute)
 
 //Start message
 app.listen(
