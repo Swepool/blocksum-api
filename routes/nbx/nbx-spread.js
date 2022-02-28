@@ -1,17 +1,14 @@
 const router = require('express').Router();
 const fetch = require("cross-fetch");
 
-
 let obj = []
 let currentSpread
-let spread
-let price
 
 setInterval(async function start() {
     const timeNow = new Date();
-    const time = timeNow.toLocaleString(('no', { hour: 'numeric', hour12: true,  }))
+    const time = timeNow.toLocaleTimeString(('no-NN', {timeStyle: 'short', hour12: false}))
 
-    await fetch('https://api.firi.com/v2/markets/btcnok/depth')
+    await fetch('https://api.nbx.com/markets/btc-nok/orders')
         .then(res => {
             if (!res.ok) {
                 throw Error('Status not ok')
@@ -19,10 +16,10 @@ setInterval(async function start() {
             return res.json()
         })
         .then(data => {
-            currentSpread = (((data.asks[0][0] - data.bids[0][0]) / data.asks[0][0]) * 100).toFixed(2)
-            console.log(currentSpread)
+            if (data[1].price > data[0].price) {
+                currentSpread = (((data[1].price - data[0].price) / data[1].price) * 100).toFixed(2)
+            }
         }).catch(err => console.log(err))
-
 
    await createList(time, currentSpread)
 
@@ -37,7 +34,6 @@ async function createList(time, data) {
         obj.shift()
     }
     console.log('Writing ✏️')
-
 }
 
 //Listen for /nodes

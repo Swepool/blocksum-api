@@ -1,16 +1,15 @@
 const router = require('express').Router();
 const fetch = require("cross-fetch");
 
-
 let obj = []
 let currentSpread
-let price
 
 setInterval(async function start() {
     const timeNow = new Date();
-    const time = timeNow.toLocaleString(('no', { hour: 'numeric', hour12: true,  }))
+    const time = timeNow.toLocaleTimeString(('no-NN', {timeStyle: 'short', hour12: false}))
+    console.log(time)
 
-    await fetch('https://api.nbx.com/markets/btc-nok/orders')
+    await fetch('https://www.kaupangkrypto.no/api/price/?coin=btc')
         .then(res => {
             if (!res.ok) {
                 throw Error('Status not ok')
@@ -18,11 +17,9 @@ setInterval(async function start() {
             return res.json()
         })
         .then(data => {
-            if (data[1].price > data[0].price) {
-                currentSpread = (((data[1].price - data[0].price) / data[1].price) * 100).toFixed(2)
-            }
+            currentSpread = (((data[0].buy - data[0].sell) / data[0].ask) * 100).toFixed(2)
+            console.log(currentSpread)
         }).catch(err => console.log(err))
-
 
    await createList(time, currentSpread)
 
@@ -37,7 +34,6 @@ async function createList(time, data) {
         obj.shift()
     }
     console.log('Writing ✏️')
-
 }
 
 //Listen for /nodes

@@ -20,14 +20,20 @@ app.use('/supply', cors(corsOptions), supplyRoute)
 
 //NBX
 
-const spreadRoute = require('./routes/nbx-spread')
+const spreadRoute = require('./routes/nbx/nbx-spread')
 app.use('/nbx/spread', cors(corsOptions), spreadRoute)
 
 
 //Firi
 
-const spreadFiriRoute = require('./routes/firi-spread')
+const spreadFiriRoute = require('./routes/firi/firi-spread')
 app.use('/firi/spread', cors(corsOptions), spreadFiriRoute)
+
+
+//Firi
+
+const spreadKaupangRoute = require('./routes/kaupang/kaupang-spread')
+app.use('/kaupang/spread', cors(corsOptions), spreadKaupangRoute)
 
 //Start message
 app.listen(
