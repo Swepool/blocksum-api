@@ -21,7 +21,7 @@ app.use('/supply', cors(corsOptions), supplyRoute)
 //NBX
 
 const spreadRoute = require('./routes/nbx-spread')
-app.use('/spread', cors(corsOptions), spreadRoute)
+app.use('/nbx/spread', cors(corsOptions), spreadRoute)
 
 //Start message
 app.listen(
