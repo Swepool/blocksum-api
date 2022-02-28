@@ -23,6 +23,12 @@ app.use('/supply', cors(corsOptions), supplyRoute)
 const spreadRoute = require('./routes/nbx-spread')
 app.use('/nbx/spread', cors(corsOptions), spreadRoute)
 
+
+//Firi
+
+const spreadFiriRoute = require('./routes/firi-spread')
+app.use('/firi/spread', cors(corsOptions), spreadFiriRoute)
+
 //Start message
 app.listen(
     PORT,
