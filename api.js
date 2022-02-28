@@ -19,21 +19,21 @@ const supplyRoute = require('./routes/get-supply')
 app.use('/supply', cors(corsOptions), supplyRoute)
 
 //NBX
-
 const spreadRoute = require('./routes/nbx/nbx-spread')
 app.use('/nbx/spread', cors(corsOptions), spreadRoute)
 
 
 //Firi
-
 const spreadFiriRoute = require('./routes/firi/firi-spread')
 app.use('/firi/spread', cors(corsOptions), spreadFiriRoute)
 
-
-//Firi
-
+//Kaupang
 const spreadKaupangRoute = require('./routes/kaupang/kaupang-spread')
 app.use('/kaupang/spread', cors(corsOptions), spreadKaupangRoute)
+
+//Handlekrypto
+const spreadhkRoute = require('./routes/handlekrypto/handlekrypto-spread')
+app.use('/handlekrypto/spread', cors(corsOptions), spreadhkRoute)
 
 //Start message
 app.listen(
