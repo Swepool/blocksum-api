@@ -19,26 +19,14 @@ setInterval(async function start() {
         })
         .then(data => {
             if (data[1].price > data[0].price) {
-                currentSpread = (data[1].price - data[0].price)
+                currentSpread = (((data[1].price - data[0].price) / data[1].price) * 100).toFixed(2)
             }
         }).catch(err => console.log(err))
 
-    await fetch('https://api.nbx.com/markets/btc-nok/trades')
-        .then(res => {
-            if (!res.ok) {
-                throw Error('Status not ok')
-            }
-            return res.json()
-        })
-        .then(data => {
-            price = data[0].price
-        }).catch(err => console.log(err))
 
-    const spread = ((currentSpread / price) * 100).toFixed(2)
+   await createList(time, currentSpread)
 
-   await createList(time, spread)
-
-},60000)
+},5000)
 
 async function createList(time, data) {
     obj.push({

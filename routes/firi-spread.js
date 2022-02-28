@@ -4,6 +4,7 @@ const fetch = require("cross-fetch");
 
 let obj = []
 let currentSpread
+let spread
 let price
 
 setInterval(async function start() {
@@ -18,25 +19,14 @@ setInterval(async function start() {
             return res.json()
         })
         .then(data => {
-            currentSpread = (data.asks[0][0] - data.bids[0][0])
+            currentSpread = (((data.asks[0][0] - data.bids[0][0]) / data.asks[0][0]) * 100).toFixed(2)
+            console.log(currentSpread)
         }).catch(err => console.log(err))
 
-    await fetch('https://api.firi.com/v1/markets/btcnok/history')
-        .then(res => {
-            if (!res.ok) {
-                throw Error('Status not ok')
-            }
-            return res.json()
-        })
-        .then(data => {
-            price = data[0].price
-        }).catch(err => console.log(err))
 
-    const spread = ((currentSpread / price) * 100).toFixed(2)
+   await createList(time, currentSpread)
 
-   await createList(time, spread)
-
-},60000)
+},5000)
 
 async function createList(time, data) {
     obj.push({
