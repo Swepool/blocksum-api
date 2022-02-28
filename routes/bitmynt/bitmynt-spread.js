@@ -24,7 +24,7 @@ setInterval(async function start() {
 
    await createList(time, currentSpread)
 
-},5000)
+},60000)
 
 async function createList(time, data) {
     obj.push({
