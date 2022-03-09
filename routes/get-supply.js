@@ -46,7 +46,7 @@ async function getByBlockHash(hash) {
         })
     });
     const data = await response.json();
-    supplyJSON(data.result.block.alreadyGeneratedCoins).slice(0, -5), max)
+    supplyJSON((data.result.block.alreadyGeneratedCoins).slice(0, -5), max)
 }
 
 
