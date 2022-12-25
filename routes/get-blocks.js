@@ -54,8 +54,8 @@ function createBlockList(block) {
         time: block.timestamp
     })
 }
-setInterval(getLatest, 45000)
-getLatest()
+//setInterval(getLatest, 45000)
+//getLatest()
 
 
 

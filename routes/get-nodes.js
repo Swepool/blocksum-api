@@ -1,34 +1,31 @@
-const express = require('express')
 const router = require('express').Router();
-const fetch = require("cross-fetch");
-const cors = require("cors");
+const axios = require('axios')
+const nodeList = require('../lib/nodes')
 
 let nodes = []
+let timestamp
 
-//Fetch list from github and iterate over all nodes
-    function getNodeData() {
-        console.log("🚨 Getting nodes")
-        nodes = []
-        fetch(`https://raw.githubusercontent.com/kryptokrona/kryptokrona-nodes-list/master/nodes.json`)
-            .then(res => res.json())
-            .then(data => {
-                for (const node of data.nodes){
-                    fetch('http://' + node.url + ':11898/getinfo')
-                        .then(res => res.json())
-                        .then(data => {
-                            createNodeList(node, data)
-                        })
-                        .catch(err => console.log(err))
-                }
+function checkNodeStatus() {
+    timestamp = Date.now()
+    nodeList.forEach(function (node) {
+        const startTime = Date.now();
+        axios.get(`http://${node.url}:${node.port}/getinfo`, {timeout: 1000 * 30})
+            .then(function (res) {
+                createNodeList(node, res.data)
+                console.log(`NODE CHECK - ${node.url} seems to be online 🥳`)
             })
-            .catch(err => console.log(err))
-    }
+            .catch(function (error) {
+                createNodeList(node, false)
+                console.log(`NODE CHECK - ${node.url} seems to be offline 🥶`)
+            });
+    });
+}
 
-//Create list of nodes
-    function createNodeList(node, data) {
+function createNodeList(node, data) {
+    if (data) {
         nodes.push({
             nodeName: node.name,
-            nodeUrl:node.url,
+            nodeUrl: node.url,
             nodePort: node.port,
             nodeFee: node.fee,
             nodeSsl: node.ssl,
@@ -39,14 +36,34 @@ let nodes = []
             nodeStatus: data.status,
             nodeVersion: data.version
         })
+    } else {
+        nodes.push({
+            nodeName: node.name,
+            nodeUrl: node.url,
+            nodePort: node.port,
+            nodeFee: node.fee,
+            nodeSsl: node.ssl,
+            nodeHeight: 0,
+            connectionsIn: 0,
+            connectionsOut: 0,
+            nodeSynced: 'OFFLINE',
+            nodeStatus: 'OFFLINE',
+            nodeVersion: 'OFFLINE'
+        })
     }
+}
 
-setInterval(getNodeData, 90000)
-getNodeData()
+setInterval(checkNodeStatus, 1000 * 60)
+checkNodeStatus()
 
-//Listen for /nodes
 router.get('/', (req, res) => {
-    res.status(200).send({nodes})
+    res.status(200).send(
+        JSON.stringify({
+            lastCheck: timestamp,
+            nodesChecked: nodeList.length,
+            nodesOnline: nodes.length,
+            nodes: nodes
+        }))
 })
 
 module.exports = router

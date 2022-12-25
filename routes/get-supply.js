@@ -1,14 +1,15 @@
-const express = require('express')
 const router = require('express').Router();
 const fetch = require("cross-fetch");
-const cors = require("cors");
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-let supply
-const max = 1000000000
+let timestamp
+let SUPPLY
+const MAX = 100000000000000
+const COIN_UNITS = 100000
+const DECIMALS = 5
 
 async function getLatest() {
     console.log("🚨 Getting supply")
@@ -30,7 +31,6 @@ async function getLatest() {
 }
 
 async function getByBlockHash(hash) {
-    supply
     const response = await fetch('https://blocksum.org/api/json_rpc', {
         method: 'POST',
         cache: 'no-cache',
@@ -46,25 +46,23 @@ async function getByBlockHash(hash) {
         })
     });
     const data = await response.json();
-    supplyJSON((data.result.block.alreadyGeneratedCoins).slice(0, -5), max)
-}
-
-
-//Create list of nodes
-function supplyJSON(current, max) {
-    supply = JSON.stringify({
-        current,
-        max
-        })
+    timestamp = Date.now()
+    SUPPLY = data.result.block.alreadyGeneratedCoins
 }
 
 setInterval(getLatest, 60000)
 getLatest()
 
-
-//Listen for /nodes
 router.get('/', (req, res) => {
-    res.status(200).send({supply: JSON.parse(supply)})
+    res.status(200).send(JSON.stringify({
+        lastCheck: timestamp,
+        circulatingUnits: parseInt(SUPPLY),
+        maxUnits: MAX,
+        coinUnits: COIN_UNITS,
+        decimals: DECIMALS,
+        calculatedSupply: SUPPLY / COIN_UNITS,
+        calculatedMaxSupply: MAX / COIN_UNITS,
+    }))
 })
 
 module.exports = router

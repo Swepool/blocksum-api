@@ -26,6 +26,6 @@ app.use('/pools', cors(corsOptions), poolsRoute)
 const supplyRoute = require('./routes/get-supply')
 app.use('/supply', cors(corsOptions), supplyRoute)
 
-const blocksRoute = require('./routes/get-blocks')
-app.use('/blocks', cors(corsOptions), blocksRoute)
+//const blocksRoute = require('./routes/get-blocks')
+//app.use('/blocks', cors(corsOptions), blocksRoute)
 
