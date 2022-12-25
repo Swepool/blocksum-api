@@ -36,7 +36,7 @@ function createNodeList(node, data) {
             nodeStatus: data.status,
             nodeVersion: data.version
         })
-    } else {
+    } else if(!data) {
         nodes.push({
             nodeName: node.name,
             nodeUrl: node.url,
