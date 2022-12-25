@@ -7,6 +7,7 @@ let timestamp
 
 function checkNodeStatus() {
     timestamp = Date.now()
+    nodes = []
     nodeList.forEach(function (node) {
         const startTime = Date.now();
         axios.get(`http://${node.url}:${node.port}/getinfo`, {timeout: 1000 * 30})

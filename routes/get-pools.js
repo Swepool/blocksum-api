@@ -19,6 +19,7 @@ function checkPools() {
     timestamp = Date.now()
     miners = 0
     workers = 0
+    pools = []
     poolList.forEach(function (pool) {
         const startTime = Date.now();
         axios.get(pool.url, {timeout: 1000 * 30, headers: {'Accept-Encoding': 'zlib'}})
