@@ -49,7 +49,7 @@ setInterval(checkPools, 1000 * 60)
 checkPools()
 
 router.get('/', (req, res) => {
-    res.status(200).send(JSON.stringify({
+    res.status(200).send(({
             lastCheck: timestamp,
             totalMiners: miners,
             totalWorkers: workers,

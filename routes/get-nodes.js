@@ -58,12 +58,12 @@ checkNodeStatus()
 
 router.get('/', (req, res) => {
     res.status(200).send(
-        JSON.stringify({
+        {
             lastCheck: timestamp,
             nodesChecked: nodeList.length,
             nodesOnline: nodes.length,
             nodes: nodes
-        }))
+        })
 })
 
 module.exports = router

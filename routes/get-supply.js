@@ -54,7 +54,7 @@ setInterval(getLatest, 60000)
 getLatest()
 
 router.get('/', (req, res) => {
-    res.status(200).send(JSON.stringify({
+    res.status(200).send({
         lastCheck: timestamp,
         circulatingUnits: parseInt(SUPPLY),
         maxUnits: MAX,
@@ -62,7 +62,7 @@ router.get('/', (req, res) => {
         decimals: DECIMALS,
         calculatedSupply: SUPPLY / COIN_UNITS,
         calculatedMaxSupply: MAX / COIN_UNITS,
-    }))
+    })
 })
 
 module.exports = router
