@@ -1,25 +1,46 @@
 const router = require('express').Router();
 const axios = require('axios')
-const nodeList = require('../lib/nodes')
 
 let nodes = []
 let timestamp
+let nodesChecked = 0;
 
-function checkNodeStatus() {
-    timestamp = Date.now()
-    nodes = []
-    nodeList.forEach(function (node) {
-        const startTime = Date.now();
-        axios.get(`http://${node.url}:${node.port}/getinfo`, {timeout: 1000 * 30})
-            .then(function (res) {
-                createNodeList(node, res.data)
-                console.log(`NODE CHECK - ${node.url} seems to be online 🥳`)
-            })
-            .catch(function (error) {
-                createNodeList(node, false)
-                console.log(`NODE CHECK - ${node.url} seems to be offline 🥶`)
-            });
+function fetchNodes() {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/kryptokrona/kryptokrona-public-nodes/main/nodes.json"
+      )
+      .then(function (res) {
+        let _nodes = res.data.nodes;
+        if (!_nodes) return;
+  
+        nodesChecked = _nodes.length;
+  
+        for (let i = 0; i < _nodes.length; i++) {
+          fetchNode(_nodes[i]);
+        }
+    })
+    .catch(function (error) {
+        console.log(`Failed fetching nodes - ${error}`);
     });
+}
+  
+function fetchNode(node) {
+    axios
+      .get(`http://${node.url}:${node.port}/getinfo`, { timeout: 1000 * 30 })
+      .then(function (res) {
+        createNodeList(node, res.data);
+    })
+    .catch(function (error) {
+        createNodeList(node, false);
+    });
+}
+  
+function checkNodeStatus() {
+    timestamp = Date.now();
+    nodes = [];
+  
+    fetchNodes();
 }
 
 function createNodeList(node, data) {
@@ -61,7 +82,7 @@ router.get('/', (req, res) => {
     res.status(200).send(
         {
             lastCheck: timestamp,
-            nodesChecked: nodeList.length,
+            nodesChecked: nodesChecked,
             nodesOnline: nodes.length,
             nodes: nodes
         })

@@ -61,4 +61,21 @@ router.get('/', (req, res) => {
     ))
 })
 
+router.get("/:name", (req, res) => {
+  let pool;
+  let name = req.params.name;
+  for (let i = 0; i < pools.length; i++) {
+    if (pools[i].name == name) {
+      pool = pools[i];
+      break;
+    }
+  }
+
+  if (!pool) {
+    res.status(404).send({ message: name + " not found" });
+  }
+
+  res.status(200).send(pool);
+})
+
 module.exports = router
