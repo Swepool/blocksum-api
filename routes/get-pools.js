@@ -7,7 +7,8 @@ let poolList = [
     {name: "Pool-pay", href: "https://xkr.pool-pay.com", url: "https://xkr.pool-pay.com:5383/stats"},
     {name: "Privacymine", href: "https://privacymine.net", url: "https://privacymine.net:8117/stats"},
     {name: 'Newpool', href: 'https://newpool.pw/xkr/', url: 'https://minenice.newpool.pw:8247/stats'},
-    {name: 'Pool Kryptokrona', href: 'https://pool.kryptokrona.se', url: 'https://pool.kryptokrona.se/api/stats'}
+    {name: 'Pool Kryptokrona', href: 'https://pool.kryptokrona.se', url: 'https://pool.kryptokrona.se/api/stats'},
+    {name: 'TechyPool', href: 'https://techy.ddns.net', url: 'https://techy.ddns.net/poolApi/stats'}
 ]
 
 let pools = []
